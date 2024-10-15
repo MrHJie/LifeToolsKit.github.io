@@ -147,7 +147,17 @@
 
         <h2>3. 个人护理与卫生用品</h2>
         <ul>
-            <li><input type="checkbox" onclick="updateCheckedItems(this, '护肤品')">护肤品</li>
+            <li>
+                <details>
+                    <summary><input type="checkbox" onclick="updateCheckedItems(this, '护肤品')">护肤品</summary>
+                    <ul>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '洗面奶')">洗面奶</li>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '香水')">香水</li>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '头发（护发素/膜+胶+架）')">头发（护发素/膜+胶+架）</li>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '牙线')">牙线</li>
+                    </ul>
+                </details>
+            </li>
             <li><input type="checkbox" onclick="updateCheckedItems(this, '化妆品')">化妆品</li>
             <li><input type="checkbox" onclick="updateCheckedItems(this, '防晒')">防晒</li>
             <li><input type="checkbox" onclick="updateCheckedItems(this, '剃须刀')">剃须刀</li>
