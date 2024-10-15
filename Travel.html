@@ -56,22 +56,17 @@
         }
     </style>
     <script>
-        function updateCheckedItems() {
-            const checkboxes = document.querySelectorAll('.left input[type="checkbox"]');
-            const checkedItems = [];
-            checkboxes.forEach(checkbox => {
-                if (checkbox.checked) {
-                    checkedItems.push(checkbox.nextSibling.textContent.trim());
-                }
-            });
-
+        function updateCheckedItems(checkbox, itemText) {
+            const listItem = checkbox.parentNode;
             const checkedList = document.getElementById('checkedItems');
-            checkedList.innerHTML = '';
-            checkedItems.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = item;
-                checkedList.appendChild(li);
-            });
+
+            // 移除左侧选中项
+            listItem.remove();
+
+            // 将选中项添加到右侧
+            const li = document.createElement('li');
+            li.textContent = itemText;
+            checkedList.appendChild(li);
         }
     </script>
 </head>
@@ -81,107 +76,90 @@
     <div class="left">
         <h1>旅行必备</h1>
 
-        <h2>1. 证件类</h2>
+        <h2>1. 证件与票据</h2>
         <ul>
-            <li><input type="checkbox" onclick="updateCheckedItems()">身份证</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">学生证</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">驾照</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">护照</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">现金</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">银行卡 + 公务卡</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">车票或机票</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">证件照</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '身份证')">身份证</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '学生证')">学生证</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '驾照')">驾照</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '护照')">护照</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '现金')">现金</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '银行卡 + 公务卡')">银行卡 + 公务卡</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '车票或机票')">车票或机票</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '证件照')">证件照</li>
         </ul>
 
-        <h2>2. 衣物类</h2>
+        <h2>2. 行李与衣物</h2>
         <ul>
-            <li><input type="checkbox" onclick="updateCheckedItems()">小书包</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">行李箱</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">衣服</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">鞋子</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">拖鞋</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">泳装</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">太阳镜</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">帽子</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">围巾</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">口罩</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">内裤</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">袜子</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '小书包')">小书包</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '行李箱')">行李箱</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '衣服')">衣服</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '鞋子')">鞋子</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '拖鞋')">拖鞋</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '泳装')">泳装</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '太阳镜')">太阳镜</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '帽子')">帽子</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '围巾')">围巾</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '口罩')">口罩</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '内裤')">内裤</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '袜子')">袜子</li>
         </ul>
 
-        <h2>3. 个人洗护类</h2>
+        <h2>3. 个人护理与卫生用品</h2>
         <ul>
-            <li><input type="checkbox" onclick="updateCheckedItems()">护肤品</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">化妆品</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">防晒</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">洗面奶</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">剃须刀</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">毛巾</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">牙刷</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">牙膏</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">眼镜</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">洗发水</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">沐浴露</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">牙线</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '护肤品')">护肤品</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '化妆品')">化妆品</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '防晒')">防晒</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '洗面奶')">洗面奶</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '剃须刀')">剃须刀</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '毛巾')">毛巾</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '牙刷')">牙刷</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '牙膏')">牙膏</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '眼镜')">眼镜</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '洗发水')">洗发水</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '沐浴露')">沐浴露</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '牙线')">牙线</li>
         </ul>
 
-        <h2>4. 电子类及其他小物品</h2>
+        <h2>4. 电子设备及配件</h2>
         <ul>
-            <li><input type="checkbox" onclick="updateCheckedItems()">手机</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">笔记本电脑</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">平板电脑</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">充电器</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">充电宝</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">耳机</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">相机</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">雨伞</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">梳子</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">小镜子</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">水杯</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">手纸</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">创可贴</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">行程单</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">零食</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">钥匙</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '手机')">手机</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '笔记本电脑')">笔记本电脑</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '平板电脑')">平板电脑</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '充电器')">充电器</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '充电宝')">充电宝</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '耳机')">耳机</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '相机')">相机</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '雨伞')">雨伞</li>
         </ul>
 
-        <h2>5. 常用药品</h2>
+        <h2>5. 药品与健康</h2>
         <ul>
-            <li><input type="checkbox" onclick="updateCheckedItems()">感冒药</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">布洛芬</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">眼药水</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">鼻炎药</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">一支膏药</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '感冒药')">感冒药</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '布洛芬')">布洛芬</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '眼药水')">眼药水</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '鼻炎药')">鼻炎药</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '一支膏药')">一支膏药</li>
         </ul>
 
-        <h2>6. 一次性用品</h2>
+        <h2>6. 杂项与常用物品</h2>
         <ul>
-            <li><input type="checkbox" onclick="updateCheckedItems()">一次性马桶垫</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">床上四件套</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">折叠拖鞋</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '梳子')">梳子</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '水杯')">水杯</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '手纸')">手纸</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '创可贴')">创可贴</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '行程单')">行程单</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '零食')">零食</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '钥匙')">钥匙</li>
         </ul>
-
-        <h2>7. 出行前一天</h2>
-        <ul>
-            <li><input type="checkbox" onclick="updateCheckedItems()">结算必要的帐单（充电卡／水卡／煤气卡，防止回到家傻眼儿）</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">托管自己的宠物、植物</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">告诉家人或者熟悉的朋友自己的行程</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">关好门窗</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">收好家里的贵重物品</li>
-            <li><input type="checkbox" onclick="updateCheckedItems()">确保手机有话费</li>
-        </ul>
-        
-        <!-- More categories can be added here as needed -->
     </div>
 
     <div class="right">
-        <h1>已选择物品</h1>
+        <h1>已选择的物品</h1>
         <ul id="checkedItems">
-            <!-- Selected items will appear here -->
+            <!-- 已选择的物品将动态展示在此 -->
         </ul>
     </div>
 </div>
 
 </body>
 </html>
-
