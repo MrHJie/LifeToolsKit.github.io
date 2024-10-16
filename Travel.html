@@ -14,7 +14,16 @@
             align-items: center;
             height: 100vh;
             background: linear-gradient(135deg, #f0f4f8, #cfd9df);
+            background-size: 200% 200%;
+            animation: gradientAnimation 10s ease infinite;
         }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         .container {
             display: flex;
             width: 80%;
@@ -87,6 +96,48 @@
             padding: 10px;
             margin-bottom: 10px;
             border-radius: 6px;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* 渐变色按钮样式 */
+        button {
+            background: linear-gradient(45deg, #6ab04c, #badc58);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.5s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #ffbe76, #ff7979);
+        }
+
+        details ul {
+            display: none;
+        }
+        details[open] ul {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* 勾选打勾动画 */
+        input[type="checkbox"]:checked + label::before {
+            content: "✔";
+            display: inline-block;
+            color: green;
+            animation: checkMark 0.5s ease-in-out;
+        }
+
+        @keyframes checkMark {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
         }
     </style>
     <script>
