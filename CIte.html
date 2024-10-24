@@ -3,227 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>城市旅游路线规划</title>
+    <title>旅游必去清单</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f9;
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
             margin: 0;
             padding: 20px;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            height: 100vh;
         }
-
-        h1 {
-            color: #2c3e50;
-            font-size: 36px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .group {
-            width: 100%;
-            max-width: 900px;
-            margin: 20px 0;
-        }
-
-        .group-title {
-            background: linear-gradient(45deg, #5f76f7, #a54ee8);
-            color: white;
-            padding: 15px;
-            font-size: 22px;
-            cursor: pointer;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            transition: background 0.3s ease;
-            text-align: center;
-        }
-
-        .group-title:hover {
-            background: linear-gradient(45deg, #7a8ffe, #c876ff);
-        }
-
-        .timeline {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .card {
-            background-color: #fff;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            margin-bottom: 25px;
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            max-width: 800px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
             overflow: hidden;
-            transition: box-shadow 0.4s ease;
-            padding: 15px;
         }
-
-        .card:hover {
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        th, td {
+            padding: 12px 20px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
         }
-
-        .card-header {
-            background-color: #3498db;
+        th {
+            background-color: #0078d7;
             color: white;
-            padding: 20px;
-            font-size: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-radius: 15px 15px 0 0;
-            cursor: pointer;
         }
-
-        .card-content {
-            padding: 15px;
-            display: none;
-            animation: slideIn 0.4s ease-out;
+        tr:hover {
+            background-color: #f1f1f1;
         }
-
-        .card-content p {
-            margin: 10px 0;
-            color: #333;
-            line-height: 1.6;
+        caption {
+            caption-side: top;
+            padding: 10px;
+            font-size: 1.5em;
+            color: #0078d7;
+            font-weight: bold;
         }
-
-        .transport, .time {
-            font-size: 16px;
-            color: #555;
-            margin-bottom: 10px;
-        }
-
-        /* 动画效果 */
-        @keyframes slideIn {
-            from { transform: translateY(-10px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .toggle-btn {
-            border: none;
-            background-color: transparent;
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-            outline: none;
-            transition: transform 0.3s ease;
-        }
-
-        .card-header.active .toggle-btn {
-            transform: rotate(180deg);
-        }
-
-        /* 屏幕适配 */
-        @media screen and (max-width: 600px) {
-            h1 {
-                font-size: 28px;
-            }
-
-            .card-header {
-                font-size: 18px;
-            }
+        td:first-child {
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-    <h1>城市旅游路线规划</h1>
-
-    <!-- 距离较近的景点 -->
-    <div class="group">
-        <div class="group-title" onclick="toggleGroup(this)">距离较近的景点</div>
-        <div class="timeline">
-            <div class="card">
-                <div class="card-header" onclick="toggleCard(this)">
-                    景点 1: 天安门广场
-                    <button class="toggle-btn">▼</button>
-                </div>
-                <div class="card-content">
-                    <p class="transport">交通方式：步行</p>
-                    <p class="time">预计时间：60 分钟</p>
-                    <p>天安门广场是中国北京市中心的城市广场，是世界上最大的城市广场之一。</p>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header" onclick="toggleCard(this)">
-                    景点 2: 故宫博物院
-                    <button class="toggle-btn">▼</button>
-                </div>
-                <div class="card-content">
-                    <p class="transport">交通方式：步行</p>
-                    <p class="time">预计时间：120 分钟</p>
-                    <p>故宫博物院位于北京，是明清两代的皇宫，现为中国最重要的博物馆之一。</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 距离中等的景点 -->
-    <div class="group">
-        <div class="group-title" onclick="toggleGroup(this)">距离中等的景点</div>
-        <div class="timeline">
-            <div class="card">
-                <div class="card-header" onclick="toggleCard(this)">
-                    景点 3: 颐和园
-                    <button class="toggle-btn">▼</button>
-                </div>
-                <div class="card-content">
-                    <p class="transport">交通方式：公交</p>
-                    <p class="time">预计时间：90 分钟</p>
-                    <p>颐和园是中国现存最大的皇家园林之一，拥有丰富的自然景观和历史建筑。</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 距离较远的景点 -->
-    <div class="group">
-        <div class="group-title" onclick="toggleGroup(this)">距离较远的景点</div>
-        <div class="timeline">
-            <div class="card">
-                <div class="card-header" onclick="toggleCard(this)">
-                    景点 4: 798艺术区
-                    <button class="toggle-btn">▼</button>
-                </div>
-                <div class="card-content">
-                    <p class="transport">交通方式：地铁</p>
-                    <p class="time">预计时间：45 分钟</p>
-                    <p>798艺术区是北京的一个现代艺术中心，拥有众多画廊、展览和创意产业。</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function toggleCard(element) {
-            const content = element.nextElementSibling;
-            const button = element.querySelector('.toggle-btn');
-            element.classList.toggle('active');
-
-            if (content.style.display === "block") {
-                content.style.display = "none";
-            } else {
-                content.style.display = "block";
-            }
-        }
-
-        function toggleGroup(element) {
-            const timeline = element.nextElementSibling;
-
-            if (timeline.style.display === "block") {
-                timeline.style.opacity = "0";
-                setTimeout(() => timeline.style.display = "none", 300);
-            } else {
-                timeline.style.display = "block";
-                setTimeout(() => timeline.style.opacity = "1", 10);
-            }
-        }
-    </script>
+    <table>
+        <caption>旅游必去清单</caption>
+        <thead>
+            <tr>
+                <th>景点名称</th>
+                <th>位置</th>
+                <th>特色</th>
+                <th>建议游玩时长</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>故宫</td>
+                <td>北京</td>
+                <td>历史文化、宫殿建筑</td>
+                <td>3-4小时</td>
+            </tr>
+            <tr>
+                <td>黄山</td>
+                <td>安徽</td>
+                <td>山景、云海、日出</td>
+                <td>1-2天</td>
+            </tr>
+            <tr>
+                <td>张家界</td>
+                <td>湖南</td>
+                <td>奇峰、玻璃桥</td>
+                <td>2-3天</td>
+            </tr>
+            <tr>
+                <td>长城</td>
+                <td>北京</td>
+                <td>历史遗迹、登高望远</td>
+                <td>半天至1天</td>
+            </tr>
+            <tr>
+                <td>九寨沟</td>
+                <td>四川</td>
+                <td>湖泊、瀑布、秋景</td>
+                <td>1-2天</td>
+            </tr>
+        </tbody>
+    </table>
 
 </body>
 </html>
