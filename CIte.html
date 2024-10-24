@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
+            background-color: #f4f4f9;
             margin: 0;
             padding: 20px;
             display: flex;
@@ -16,79 +16,91 @@
         }
 
         h1 {
-            color: #333;
-            font-size: 32px;
-            margin-bottom: 20px;
+            color: #2c3e50;
+            font-size: 36px;
+            margin-bottom: 30px;
+            text-align: center;
         }
 
         .group {
             width: 100%;
-            max-width: 800px;
-            margin: 10px 0;
+            max-width: 900px;
+            margin: 20px 0;
         }
 
         .group-title {
-            background-color: #2196F3;
+            background: linear-gradient(45deg, #5f76f7, #a54ee8);
             color: white;
             padding: 15px;
             font-size: 22px;
             cursor: pointer;
-            border-radius: 5px;
-            margin-bottom: 10px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: background 0.3s ease;
+            text-align: center;
+        }
+
+        .group-title:hover {
+            background: linear-gradient(45deg, #7a8ffe, #c876ff);
         }
 
         .timeline {
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
 
         .card {
             background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
             overflow: hidden;
-            transition: box-shadow 0.3s ease;
+            transition: box-shadow 0.4s ease;
+            padding: 15px;
         }
 
         .card:hover {
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
         }
 
         .card-header {
-            background-color: #4CAF50;
+            background-color: #3498db;
             color: white;
             padding: 20px;
             font-size: 20px;
             display: flex;
             justify-content: space-between;
-            cursor: pointer;
             align-items: center;
+            border-radius: 15px 15px 0 0;
+            cursor: pointer;
         }
 
         .card-content {
-            padding: 20px;
+            padding: 15px;
             display: none;
-            animation: fadeIn 0.3s ease-out;
+            animation: slideIn 0.4s ease-out;
         }
 
         .card-content p {
             margin: 10px 0;
-            color: #555;
+            color: #333;
+            line-height: 1.6;
         }
 
         .transport, .time {
             font-size: 16px;
-            color: #777;
+            color: #555;
             margin-bottom: 10px;
         }
 
-        /* 动态效果 */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        /* 动画效果 */
+        @keyframes slideIn {
+            from { transform: translateY(-10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         .toggle-btn {
@@ -105,9 +117,10 @@
             transform: rotate(180deg);
         }
 
+        /* 屏幕适配 */
         @media screen and (max-width: 600px) {
             h1 {
-                font-size: 24px;
+                font-size: 28px;
             }
 
             .card-header {
@@ -124,7 +137,6 @@
     <div class="group">
         <div class="group-title" onclick="toggleGroup(this)">距离较近的景点</div>
         <div class="timeline">
-            <!-- 景点1 -->
             <div class="card">
                 <div class="card-header" onclick="toggleCard(this)">
                     景点 1: 天安门广场
@@ -133,11 +145,10 @@
                 <div class="card-content">
                     <p class="transport">交通方式：步行</p>
                     <p class="time">预计时间：60 分钟</p>
-                    <p>天安门广场是中国北京市中心的城市广场，是世界上最大的城市广场之一，历史文化深厚。</p>
+                    <p>天安门广场是中国北京市中心的城市广场，是世界上最大的城市广场之一。</p>
                 </div>
             </div>
 
-            <!-- 景点2 -->
             <div class="card">
                 <div class="card-header" onclick="toggleCard(this)">
                     景点 2: 故宫博物院
@@ -146,7 +157,7 @@
                 <div class="card-content">
                     <p class="transport">交通方式：步行</p>
                     <p class="time">预计时间：120 分钟</p>
-                    <p>故宫博物院位于北京，是明清两代的皇宫，现为中国最重要的博物馆之一，收藏了大量珍贵文物。</p>
+                    <p>故宫博物院位于北京，是明清两代的皇宫，现为中国最重要的博物馆之一。</p>
                 </div>
             </div>
         </div>
@@ -156,7 +167,6 @@
     <div class="group">
         <div class="group-title" onclick="toggleGroup(this)">距离中等的景点</div>
         <div class="timeline">
-            <!-- 景点3 -->
             <div class="card">
                 <div class="card-header" onclick="toggleCard(this)">
                     景点 3: 颐和园
@@ -175,7 +185,6 @@
     <div class="group">
         <div class="group-title" onclick="toggleGroup(this)">距离较远的景点</div>
         <div class="timeline">
-            <!-- 景点4 -->
             <div class="card">
                 <div class="card-header" onclick="toggleCard(this)">
                     景点 4: 798艺术区
@@ -184,7 +193,7 @@
                 <div class="card-content">
                     <p class="transport">交通方式：地铁</p>
                     <p class="time">预计时间：45 分钟</p>
-                    <p>798艺术区是北京的一个现代艺术中心，拥有众多画廊、展览和创意产业，是现代文化的象征。</p>
+                    <p>798艺术区是北京的一个现代艺术中心，拥有众多画廊、展览和创意产业。</p>
                 </div>
             </div>
         </div>
@@ -207,9 +216,11 @@
             const timeline = element.nextElementSibling;
 
             if (timeline.style.display === "block") {
-                timeline.style.display = "none";
+                timeline.style.opacity = "0";
+                setTimeout(() => timeline.style.display = "none", 300);
             } else {
                 timeline.style.display = "block";
+                setTimeout(() => timeline.style.opacity = "1", 10);
             }
         }
     </script>
