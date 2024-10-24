@@ -21,10 +21,27 @@
             margin-bottom: 20px;
         }
 
+        .group {
+            width: 100%;
+            max-width: 800px;
+            margin: 10px 0;
+        }
+
+        .group-title {
+            background-color: #2196F3;
+            color: white;
+            padding: 15px;
+            font-size: 22px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
         .timeline {
             width: 100%;
             max-width: 800px;
             margin: 0 auto;
+            display: none;
         }
 
         .card {
@@ -51,10 +68,6 @@
             align-items: center;
         }
 
-        .card-header span {
-            font-size: 16px;
-        }
-
         .card-content {
             padding: 20px;
             display: none;
@@ -72,7 +85,12 @@
             margin-bottom: 10px;
         }
 
-        /* 按钮样式 */
+        /* 动态效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         .toggle-btn {
             border: none;
             background-color: transparent;
@@ -85,11 +103,6 @@
 
         .card-header.active .toggle-btn {
             transform: rotate(180deg);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
 
         @media screen and (max-width: 600px) {
@@ -107,56 +120,72 @@
 
     <h1>城市旅游路线规划</h1>
 
-    <div class="timeline">
-        <!-- 景点1 -->
-        <div class="card">
-            <div class="card-header" onclick="toggleCard(this)">
-                景点 1: 天安门广场
-                <button class="toggle-btn">▼</button>
+    <!-- 距离较近的景点 -->
+    <div class="group">
+        <div class="group-title" onclick="toggleGroup(this)">距离较近的景点</div>
+        <div class="timeline">
+            <!-- 景点1 -->
+            <div class="card">
+                <div class="card-header" onclick="toggleCard(this)">
+                    景点 1: 天安门广场
+                    <button class="toggle-btn">▼</button>
+                </div>
+                <div class="card-content">
+                    <p class="transport">交通方式：步行</p>
+                    <p class="time">预计时间：60 分钟</p>
+                    <p>天安门广场是中国北京市中心的城市广场，是世界上最大的城市广场之一，历史文化深厚。</p>
+                </div>
             </div>
-            <div class="card-content">
-                <p class="transport">交通方式：步行</p>
-                <p class="time">预计时间：60 分钟</p>
-                <p>天安门广场是中国北京市中心的城市广场，是世界上最大的城市广场之一，历史文化深厚。</p>
+
+            <!-- 景点2 -->
+            <div class="card">
+                <div class="card-header" onclick="toggleCard(this)">
+                    景点 2: 故宫博物院
+                    <button class="toggle-btn">▼</button>
+                </div>
+                <div class="card-content">
+                    <p class="transport">交通方式：步行</p>
+                    <p class="time">预计时间：120 分钟</p>
+                    <p>故宫博物院位于北京，是明清两代的皇宫，现为中国最重要的博物馆之一，收藏了大量珍贵文物。</p>
+                </div>
             </div>
         </div>
+    </div>
 
-        <!-- 景点2 -->
-        <div class="card">
-            <div class="card-header" onclick="toggleCard(this)">
-                景点 2: 故宫博物院
-                <button class="toggle-btn">▼</button>
-            </div>
-            <div class="card-content">
-                <p class="transport">交通方式：步行</p>
-                <p class="time">预计时间：120 分钟</p>
-                <p>故宫博物院位于北京，是明清两代的皇宫，现为中国最重要的博物馆之一，收藏了大量珍贵文物。</p>
+    <!-- 距离中等的景点 -->
+    <div class="group">
+        <div class="group-title" onclick="toggleGroup(this)">距离中等的景点</div>
+        <div class="timeline">
+            <!-- 景点3 -->
+            <div class="card">
+                <div class="card-header" onclick="toggleCard(this)">
+                    景点 3: 颐和园
+                    <button class="toggle-btn">▼</button>
+                </div>
+                <div class="card-content">
+                    <p class="transport">交通方式：公交</p>
+                    <p class="time">预计时间：90 分钟</p>
+                    <p>颐和园是中国现存最大的皇家园林之一，拥有丰富的自然景观和历史建筑。</p>
+                </div>
             </div>
         </div>
+    </div>
 
-        <!-- 景点3 -->
-        <div class="card">
-            <div class="card-header" onclick="toggleCard(this)">
-                景点 3: 颐和园
-                <button class="toggle-btn">▼</button>
-            </div>
-            <div class="card-content">
-                <p class="transport">交通方式：公交</p>
-                <p class="time">预计时间：90 分钟</p>
-                <p>颐和园是中国现存最大的皇家园林之一，拥有丰富的自然景观和历史建筑。</p>
-            </div>
-        </div>
-
-        <!-- 景点4 -->
-        <div class="card">
-            <div class="card-header" onclick="toggleCard(this)">
-                景点 4: 798艺术区
-                <button class="toggle-btn">▼</button>
-            </div>
-            <div class="card-content">
-                <p class="transport">交通方式：地铁</p>
-                <p class="time">预计时间：45 分钟</p>
-                <p>798艺术区是北京的一个现代艺术中心，拥有众多画廊、展览和创意产业，是现代文化的象征。</p>
+    <!-- 距离较远的景点 -->
+    <div class="group">
+        <div class="group-title" onclick="toggleGroup(this)">距离较远的景点</div>
+        <div class="timeline">
+            <!-- 景点4 -->
+            <div class="card">
+                <div class="card-header" onclick="toggleCard(this)">
+                    景点 4: 798艺术区
+                    <button class="toggle-btn">▼</button>
+                </div>
+                <div class="card-content">
+                    <p class="transport">交通方式：地铁</p>
+                    <p class="time">预计时间：45 分钟</p>
+                    <p>798艺术区是北京的一个现代艺术中心，拥有众多画廊、展览和创意产业，是现代文化的象征。</p>
+                </div>
             </div>
         </div>
     </div>
@@ -171,6 +200,16 @@
                 content.style.display = "none";
             } else {
                 content.style.display = "block";
+            }
+        }
+
+        function toggleGroup(element) {
+            const timeline = element.nextElementSibling;
+
+            if (timeline.style.display === "block") {
+                timeline.style.display = "none";
+            } else {
+                timeline.style.display = "block";
             }
         }
     </script>
