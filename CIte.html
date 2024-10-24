@@ -6,8 +6,8 @@
     <title>城市旅游路线规划</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
             margin: 0;
             padding: 20px;
             display: flex;
@@ -17,58 +17,87 @@
 
         h1 {
             color: #333;
+            font-size: 32px;
+            margin-bottom: 20px;
         }
 
         .timeline {
+            width: 100%;
             max-width: 800px;
-            margin: 20px 0;
-            position: relative;
-            padding-left: 40px;
+            margin: 0 auto;
         }
 
-        .timeline-entry {
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
-            position: relative;
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
         }
 
-        .timeline-entry h3 {
-            font-size: 20px;
-            cursor: pointer;
-            margin: 0;
-            padding: 10px 20px;
+        .card:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
             background-color: #4CAF50;
             color: white;
-            border-radius: 5px;
+            padding: 20px;
+            font-size: 20px;
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+            align-items: center;
         }
 
-        .timeline-entry .transport {
-            font-style: italic;
-            padding-left: 20px;
-            color: #777;
+        .card-header span {
+            font-size: 16px;
         }
 
-        .timeline-entry .content {
-            background-color: #f9f9f9;
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 5px;
+        .card-content {
+            padding: 20px;
             display: none;
-            animation: fadeIn 0.5s ease-out;
+            animation: fadeIn 0.3s ease-out;
         }
 
-        .timeline-entry .time {
-            font-weight: bold;
+        .card-content p {
+            margin: 10px 0;
             color: #555;
         }
 
-        /* 动态效果 */
+        .transport, .time {
+            font-size: 16px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        /* 按钮样式 */
+        .toggle-btn {
+            border: none;
+            background-color: transparent;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            outline: none;
+            transition: transform 0.3s ease;
+        }
+
+        .card-header.active .toggle-btn {
+            transform: rotate(180deg);
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
 
         @media screen and (max-width: 600px) {
-            .timeline-entry h3 {
+            h1 {
+                font-size: 24px;
+            }
+
+            .card-header {
                 font-size: 18px;
             }
         }
@@ -80,55 +109,68 @@
 
     <div class="timeline">
         <!-- 景点1 -->
-        <div class="timeline-entry">
-            <h3 onclick="toggleContent(this)">景点 1: 天安门广场</h3>
-            <p class="transport">交通方式：步行</p>
-            <div class="content">
+        <div class="card">
+            <div class="card-header" onclick="toggleCard(this)">
+                景点 1: 天安门广场
+                <button class="toggle-btn">▼</button>
+            </div>
+            <div class="card-content">
+                <p class="transport">交通方式：步行</p>
                 <p class="time">预计时间：60 分钟</p>
                 <p>天安门广场是中国北京市中心的城市广场，是世界上最大的城市广场之一，历史文化深厚。</p>
             </div>
         </div>
 
         <!-- 景点2 -->
-        <div class="timeline-entry">
-            <h3 onclick="toggleContent(this)">景点 2: 故宫博物院</h3>
-            <p class="transport">交通方式：步行</p>
-            <div class="content">
+        <div class="card">
+            <div class="card-header" onclick="toggleCard(this)">
+                景点 2: 故宫博物院
+                <button class="toggle-btn">▼</button>
+            </div>
+            <div class="card-content">
+                <p class="transport">交通方式：步行</p>
                 <p class="time">预计时间：120 分钟</p>
                 <p>故宫博物院位于北京，是明清两代的皇宫，现为中国最重要的博物馆之一，收藏了大量珍贵文物。</p>
             </div>
         </div>
 
         <!-- 景点3 -->
-        <div class="timeline-entry">
-            <h3 onclick="toggleContent(this)">景点 3: 颐和园</h3>
-            <p class="transport">交通方式：公交</p>
-            <div class="content">
+        <div class="card">
+            <div class="card-header" onclick="toggleCard(this)">
+                景点 3: 颐和园
+                <button class="toggle-btn">▼</button>
+            </div>
+            <div class="card-content">
+                <p class="transport">交通方式：公交</p>
                 <p class="time">预计时间：90 分钟</p>
                 <p>颐和园是中国现存最大的皇家园林之一，拥有丰富的自然景观和历史建筑。</p>
             </div>
         </div>
 
         <!-- 景点4 -->
-        <div class="timeline-entry">
-            <h3 onclick="toggleContent(this)">景点 4: 798艺术区</h3>
-            <p class="transport">交通方式：地铁</p>
-            <div class="content">
+        <div class="card">
+            <div class="card-header" onclick="toggleCard(this)">
+                景点 4: 798艺术区
+                <button class="toggle-btn">▼</button>
+            </div>
+            <div class="card-content">
+                <p class="transport">交通方式：地铁</p>
                 <p class="time">预计时间：45 分钟</p>
                 <p>798艺术区是北京的一个现代艺术中心，拥有众多画廊、展览和创意产业，是现代文化的象征。</p>
             </div>
         </div>
-
-        <!-- 可以继续添加其他景点 -->
     </div>
 
     <script>
-        function toggleContent(element) {
-            const content = element.nextElementSibling.nextElementSibling;
-            if (content.style.display === "none" || content.style.display === "") {
-                content.style.display = "block";
-            } else {
+        function toggleCard(element) {
+            const content = element.nextElementSibling;
+            const button = element.querySelector('.toggle-btn');
+            element.classList.toggle('active');
+
+            if (content.style.display === "block") {
                 content.style.display = "none";
+            } else {
+                content.style.display = "block";
             }
         }
     </script>
