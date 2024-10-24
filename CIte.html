@@ -1,39 +1,137 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive China Map</title>
-    <!-- 引入Leaflet.js的CSS样式 -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <title>城市旅游路线规划</title>
     <style>
-        #map {
-            height: 100vh; /* 设置地图高度 */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .timeline {
+            max-width: 800px;
+            margin: 20px 0;
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline-entry {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .timeline-entry h3 {
+            font-size: 20px;
+            cursor: pointer;
+            margin: 0;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .timeline-entry .transport {
+            font-style: italic;
+            padding-left: 20px;
+            color: #777;
+        }
+
+        .timeline-entry .content {
+            background-color: #f9f9f9;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .timeline-entry .time {
+            font-weight: bold;
+            color: #555;
+        }
+
+        /* 动态效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media screen and (max-width: 600px) {
+            .timeline-entry h3 {
+                font-size: 18px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 地图容器 -->
-    <div id="map"></div>
 
-    <!-- 引入Leaflet.js库 -->
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <h1>城市旅游路线规划</h1>
+
+    <div class="timeline">
+        <!-- 景点1 -->
+        <div class="timeline-entry">
+            <h3 onclick="toggleContent(this)">景点 1: 天安门广场</h3>
+            <p class="transport">交通方式：步行</p>
+            <div class="content">
+                <p class="time">预计时间：60 分钟</p>
+                <p>天安门广场是中国北京市中心的城市广场，是世界上最大的城市广场之一，历史文化深厚。</p>
+            </div>
+        </div>
+
+        <!-- 景点2 -->
+        <div class="timeline-entry">
+            <h3 onclick="toggleContent(this)">景点 2: 故宫博物院</h3>
+            <p class="transport">交通方式：步行</p>
+            <div class="content">
+                <p class="time">预计时间：120 分钟</p>
+                <p>故宫博物院位于北京，是明清两代的皇宫，现为中国最重要的博物馆之一，收藏了大量珍贵文物。</p>
+            </div>
+        </div>
+
+        <!-- 景点3 -->
+        <div class="timeline-entry">
+            <h3 onclick="toggleContent(this)">景点 3: 颐和园</h3>
+            <p class="transport">交通方式：公交</p>
+            <div class="content">
+                <p class="time">预计时间：90 分钟</p>
+                <p>颐和园是中国现存最大的皇家园林之一，拥有丰富的自然景观和历史建筑。</p>
+            </div>
+        </div>
+
+        <!-- 景点4 -->
+        <div class="timeline-entry">
+            <h3 onclick="toggleContent(this)">景点 4: 798艺术区</h3>
+            <p class="transport">交通方式：地铁</p>
+            <div class="content">
+                <p class="time">预计时间：45 分钟</p>
+                <p>798艺术区是北京的一个现代艺术中心，拥有众多画廊、展览和创意产业，是现代文化的象征。</p>
+            </div>
+        </div>
+
+        <!-- 可以继续添加其他景点 -->
+    </div>
+
     <script>
-        // 初始化地图并设置中心点和缩放级别
-        var map = L.map('map').setView([35.8617, 104.1954], 5); // 中国的经纬度
-
-        // 添加地图图层（使用OpenStreetMap）
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 18, // 最大缩放级别
-            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
-
-        // 添加一个示例标记（北京）
-        L.marker([39.9042, 116.4074]).addTo(map)
-            .bindPopup('北京')
-            .openPopup();
-
-        // 缩放功能：滚轮缩放、双击缩放等交互功能已经内置在Leaflet.js中
+        function toggleContent(element) {
+            const content = element.nextElementSibling.nextElementSibling;
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+            } else {
+                content.style.display = "none";
+            }
+        }
     </script>
+
 </body>
 </html>
