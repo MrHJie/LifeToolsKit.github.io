@@ -3,63 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academic PDF Generator</title>
+    <title>Customizable Academic PPT Generator</title>
     <style>
         body {
             font-family: 'Arial', '楷体', sans-serif;
             margin: 20px;
         }
-        h1, h2, h3 {
-            font-weight: bold;
-            color: #003366; /* 深蓝色 */
-        }
-        p {
-            font-size: 16px;
-            line-height: 1.6;
-        }
-        code {
-            font-family: 'Courier New', monospace;
-            background-color: #f5f5f5;
-            padding: 5px;
-            display: block;
-            color: #006400; /* 深绿色 */
-            border-left: 4px solid #003366;
-            margin-bottom: 20px;
-        }
-        .highlight-keyword {
-            color: #8B0000; /* 深红色 */
-            font-weight: bold;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        table, th, td {
-            border: 1px solid #003366;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f5f5f5;
-        }
-        .column-layout {
-            display: flex;
-            justify-content: space-between;
-        }
-        .column {
-            width: 48%;
-        }
-        .math-formula {
-            font-style: italic;
-            text-align: center;
-            margin-top: 20px;
+        h1 {
             color: #003366;
         }
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 14px;
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            font-size: 16px;
         }
         button {
             margin-top: 20px;
@@ -73,87 +35,90 @@
         button:hover {
             background-color: #005599;
         }
+        table {
+            margin-top: 10px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #003366;
+            padding: 8px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
 
-    <h1>Academic Presentation PDF Generator</h1>
+    <h1>Customizable Academic PPT Generator</h1>
 
-    <h2>Multilingual Support</h2>
-    <p>这份文档支持中英双语混合排版。For example, this is an English sentence, and 这是中文句子。</p>
+    <label for="title">Slide Title</label>
+    <input type="text" id="title" placeholder="Enter the title of the slide">
 
-    <h2>Font Styles</h2>
-    <p>标题使用了加粗样式，代码段如下所示：</p>
-    <code>
-        function helloWorld() { <br>
-        &nbsp;&nbsp;&nbsp;console.log(<span class="highlight-keyword">'Hello, World!'</span>);<br>
-        }
-    </code>
+    <label for="content">Slide Content</label>
+    <textarea id="content" rows="5" placeholder="Enter the main content"></textarea>
 
-    <h2>Table Example</h2>
-    <table>
-        <tr>
-            <th>Item</th>
-            <th>Description</th>
-        </tr>
-        <tr>
-            <td>Variable</td>
-            <td>Stores data values.</td>
-        </tr>
-        <tr>
-            <td>Function</td>
-            <td>Executes a block of code.</td>
-        </tr>
-    </table>
+    <label for="code">Code Segment</label>
+    <textarea id="code" rows="5" placeholder="Enter the code (if any)"></textarea>
 
-    <h2>Two-Column Layout</h2>
-    <div class="column-layout">
-        <div class="column">
-            <h3>Left Column Content</h3>
-            <p>This column contains important points in the presentation.</p>
-        </div>
-        <div class="column">
-            <h3>Right Column Content</h3>
-            <p>This column contains additional explanations or notes.</p>
-        </div>
-    </div>
+    <label for="table">Table Content (Comma Separated, Row by Row)</label>
+    <textarea id="table" rows="3" placeholder="Enter table content (e.g., Item1,Description1\nItem2,Description2)"></textarea>
 
-    <h2>Mathematical Formula Support</h2>
-    <p class="math-formula">E = mc<sup>2</sup></p>
+    <label for="formula">Mathematical Formula</label>
+    <input type="text" id="formula" placeholder="Enter a mathematical formula (optional)">
 
-    <h2>Generate PDF</h2>
     <button id="generatePdf">Generate PDF</button>
 
-    <div class="footer">
-        <p>© 2024 Academic PDF Generator</p>
-    </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
     <script>
         document.getElementById('generatePdf').addEventListener('click', function () {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
+            // Get input values
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+            const code = document.getElementById('code').value;
+            const tableContent = document.getElementById('table').value;
+            const formula = document.getElementById('formula').value;
+
+            // Title
             doc.setFont('times', 'bold');
             doc.setFontSize(24);
-            doc.text("Academic Presentation", 10, 20);
+            doc.text(title || "Slide Title", 10, 20);
 
+            // Content
             doc.setFont('times', 'normal');
             doc.setFontSize(14);
-            doc.text("This is a bilingual academic document, supporting both Chinese and English.", 10, 30);
-            doc.text("这是一份支持中文和英文的学术文档。", 10, 40);
+            doc.text(content || "This is the main content of the slide.", 10, 40);
 
-            // Table example
-            doc.autoTable({
-                startY: 50,
-                head: [['Item', 'Description']],
-                body: [
-                    ['Variable', 'Stores data values.'],
-                    ['Function', 'Executes a block of code.']
-                ],
-            });
+            // Code Section
+            if (code) {
+                doc.setFont('courier', 'normal');
+                doc.setFontSize(12);
+                doc.text("Code Example:", 10, 60);
+                doc.text(code, 10, 70);
+            }
 
-            doc.save('academic_presentation.pdf');
+            // Table Section
+            if (tableContent) {
+                const rows = tableContent.split('\n').map(row => row.split(','));
+                doc.autoTable({
+                    startY: 90,
+                    head: [['Item', 'Description']],
+                    body: rows,
+                });
+            }
+
+            // Mathematical Formula Section
+            if (formula) {
+                doc.setFont('times', 'italic');
+                doc.setFontSize(16);
+                doc.text(`Formula: ${formula}`, 10, doc.lastAutoTable ? doc.lastAutoTable.finalY + 20 : 120);
+            }
+
+            // Save PDF
+            doc.save('custom_presentation.pdf');
         });
     </script>
 
