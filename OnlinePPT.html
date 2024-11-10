@@ -98,8 +98,24 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.plugin.standard_fonts_metrics.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.plugin.split_text_to_size.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
     <script>
         let slideCount = 1;
+
+        // 加载中文字体
+        function loadChineseFont(doc) {
+            // 使用 CDN 上的中文字体文件 (黑体)
+            const chineseFont = 'https://cdn.jsdelivr.net/gh/mozilla/pdf.js/test/test_ttf_otf_fonts/NotoSansCJKtc-Regular.ttf';
+            return fetch(chineseFont)
+                .then(response => response.arrayBuffer())
+                .then(font => {
+                    doc.addFileToVFS('NotoSansCJKtc-Regular.ttf', font);
+                    doc.addFont('NotoSansCJKtc-Regular.ttf', 'NotoSans', 'normal');
+                    doc.setFont('NotoSans');
+                });
+        }
 
         // 添加新页面
         function addSlide() {
@@ -115,13 +131,16 @@
         }
 
         // 导出为PDF
-        function generatePDF() {
+        async function generatePDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({
                 orientation: 'landscape',
                 unit: 'px',
                 format: [1280, 720]
             });
+
+            // 加载中文字体
+            await loadChineseFont(doc);
 
             // 获取所有的PPT页面
             const slides = document.getElementsByClassName('slide');
@@ -132,11 +151,9 @@
                 const content = slide.querySelector('textarea').value;
                 const footer = slide.querySelector('.slide-footer').textContent;
 
-                doc.setFont('Arial', 'bold');
                 doc.setFontSize(24);
                 doc.text(40, 60, title || '标题'); // 标题
 
-                doc.setFont('Arial', 'normal');
                 doc.setFontSize(20);
                 doc.text(40, 120, content || '内容'); // 内容
 
