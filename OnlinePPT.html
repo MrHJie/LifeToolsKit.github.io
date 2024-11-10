@@ -3,14 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customizable Academic PPT Generator</title>
+    <title>Customizable 4:3 PPT Generator</title>
     <style>
         body {
             font-family: 'Arial', '楷体', sans-serif;
-            margin: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80vw; /* Set to 4:3 aspect ratio */
+            height: 60vw; /* 4:3 aspect ratio (80vw x 60vw) */
+            max-width: 960px;
+            max-height: 720px;
+            aspect-ratio: 4 / 3;
         }
         h1 {
             color: #003366;
+            text-align: center;
         }
         label {
             display: block;
@@ -22,6 +38,7 @@
             padding: 10px;
             margin-top: 5px;
             font-size: 16px;
+            box-sizing: border-box;
         }
         button {
             margin-top: 20px;
@@ -31,6 +48,7 @@
             border: none;
             cursor: pointer;
             font-size: 16px;
+            width: 100%;
         }
         button:hover {
             background-color: #005599;
@@ -49,31 +67,37 @@
 </head>
 <body>
 
-    <h1>Customizable Academic PPT Generator</h1>
+    <div class="container">
+        <h1>Customizable 4:3 PPT Generator</h1>
 
-    <label for="title">Slide Title</label>
-    <input type="text" id="title" placeholder="Enter the title of the slide">
+        <label for="title">Slide Title</label>
+        <input type="text" id="title" placeholder="Enter the title of the slide">
 
-    <label for="content">Slide Content</label>
-    <textarea id="content" rows="5" placeholder="Enter the main content"></textarea>
+        <label for="content">Slide Content</label>
+        <textarea id="content" rows="5" placeholder="Enter the main content"></textarea>
 
-    <label for="code">Code Segment</label>
-    <textarea id="code" rows="5" placeholder="Enter the code (if any)"></textarea>
+        <label for="code">Code Segment</label>
+        <textarea id="code" rows="5" placeholder="Enter the code (if any)"></textarea>
 
-    <label for="table">Table Content (Comma Separated, Row by Row)</label>
-    <textarea id="table" rows="3" placeholder="Enter table content (e.g., Item1,Description1\nItem2,Description2)"></textarea>
+        <label for="table">Table Content (Comma Separated, Row by Row)</label>
+        <textarea id="table" rows="3" placeholder="Enter table content (e.g., Item1,Description1\nItem2,Description2)"></textarea>
 
-    <label for="formula">Mathematical Formula</label>
-    <input type="text" id="formula" placeholder="Enter a mathematical formula (optional)">
+        <label for="formula">Mathematical Formula</label>
+        <input type="text" id="formula" placeholder="Enter a mathematical formula (optional)">
 
-    <button id="generatePdf">Generate PDF</button>
+        <button id="generatePdf">Generate PDF</button>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
     <script>
         document.getElementById('generatePdf').addEventListener('click', function () {
             const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+            const doc = new jsPDF({
+                orientation: 'landscape',
+                unit: 'px',
+                format: [960, 720] // 4:3 ratio (960px x 720px)
+            });
 
             // Get input values
             const title = document.getElementById('title').value;
@@ -85,28 +109,29 @@
             // Title
             doc.setFont('times', 'bold');
             doc.setFontSize(24);
-            doc.text(title || "Slide Title", 10, 20);
+            doc.text(title || "Slide Title", 40, 60);
 
             // Content
             doc.setFont('times', 'normal');
             doc.setFontSize(14);
-            doc.text(content || "This is the main content of the slide.", 10, 40);
+            doc.text(content || "This is the main content of the slide.", 40, 100);
 
             // Code Section
             if (code) {
                 doc.setFont('courier', 'normal');
                 doc.setFontSize(12);
-                doc.text("Code Example:", 10, 60);
-                doc.text(code, 10, 70);
+                doc.text("Code Example:", 40, 140);
+                doc.text(code, 40, 160);
             }
 
             // Table Section
             if (tableContent) {
                 const rows = tableContent.split('\n').map(row => row.split(','));
                 doc.autoTable({
-                    startY: 90,
+                    startY: 180,
                     head: [['Item', 'Description']],
                     body: rows,
+                    margin: { left: 40 }
                 });
             }
 
@@ -114,11 +139,11 @@
             if (formula) {
                 doc.setFont('times', 'italic');
                 doc.setFontSize(16);
-                doc.text(`Formula: ${formula}`, 10, doc.lastAutoTable ? doc.lastAutoTable.finalY + 20 : 120);
+                doc.text(`Formula: ${formula}`, 40, doc.lastAutoTable ? doc.lastAutoTable.finalY + 20 : 220);
             }
 
             // Save PDF
-            doc.save('custom_presentation.pdf');
+            doc.save('custom_presentation_4-3.pdf');
         });
     </script>
 
