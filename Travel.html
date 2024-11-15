@@ -1,107 +1,165 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>旅行必备清单</title>
     <style>
-        /* 原有样式 */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(270deg, #FFEFBA, #FFFFFF, #ADD8E6, #F0F4F8);
+            background-size: 800% 800%;
+            animation: gradientBackground 20s ease infinite;
+        }
+
+        @keyframes gradientBackground {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 50% 50%; }
+            50% { background-position: 100% 50%; }
+            75% { background-position: 50% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .container {
+            display: flex;
             width: 80%;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            height: 90vh;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            background-color: #ffffff;
         }
-
+        .left, .right {
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .left {
+            width: 60%;
+            background-color: #f9f9f9;
+        }
+        .right {
+            width: 40%;
+            background-color: #ffffff;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+        }
         h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
             text-align: center;
         }
-
         h2 {
-            margin-bottom: 10px;
+            font-size: 18px;
+            color: #007BFF;
+            margin-top: 20px;
+            border-bottom: 2px solid #007BFF;
+            padding-bottom: 5px;
         }
-
         ul {
-            list-style: none;
+            list-style-type: none;
             padding: 0;
         }
-
         ul li {
-            background-color: #f9f9f9;
-            padding: 10px;
-            margin-bottom: 8px;
-            border-radius: 4px;
+            margin: 12px 0;
             display: flex;
-            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
         }
-
-        ul li input[type="checkbox"] {
+        ul li:hover {
+            background-color: #e2e6ea;
+            transform: scale(1.02);
+        }
+        input[type="checkbox"] {
             margin-right: 10px;
         }
+        .right h1 {
+            background-color: #ff9900;
+            color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .right ul {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .right ul li {
+            background-color: #ffefd5;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            transition: opacity 0.5s ease-in-out;
+        }
 
+        /* 渐变色按钮样式 */
         button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
+            background: linear-gradient(45deg, #6ab04c, #badc58);
             border: none;
-            border-radius: 4px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: #fff;
             cursor: pointer;
+            transition: background 0.5s ease;
         }
 
         button:hover {
-            background-color: #45a049;
+            background: linear-gradient(45deg, #ffbe76, #ff7979);
         }
 
-        .items-container {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .left, .right {
-            width: 45%;
-        }
-
-        .right button {
-            margin-top: 20px;
-        }
-
-        /* 可折叠部分样式 */
-        .category {
-            margin-bottom: 15px;
-            background-color: #e9ecef;
-            padding: 10px;
-            border-radius: 4px;
-        }
-
-        .category .toggle-button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-
-        .category .toggle-button:hover {
-            background-color: #0056b3;
-        }
-
-        .items {
+        details ul {
             display: none;
-            padding-left: 20px;
+        }
+        details[open] ul {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* 勾选打勾动画 */
+        input[type="checkbox"]:checked + label::before {
+            content: "✔";
+            display: inline-block;
+            color: green;
+            animation: checkMark 0.5s ease-in-out;
+        }
+
+        @keyframes checkMark {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
     </style>
+    <script>
+        function updateCheckedItems(checkbox, itemText) {
+            const listItem = checkbox.parentNode;
+            const checkedList = document.getElementById('checkedItems');
+
+            // 移除左侧选中项
+            listItem.remove();
+
+            // 将选中项添加到右侧
+            const li = document.createElement('li');
+            li.textContent = itemText;
+            checkedList.appendChild(li);
+
+            // 添加淡入效果
+            li.style.opacity = "0";
+            setTimeout(() => li.style.opacity = "1", 10);
+        }
+    </script>
 </head>
 <body>
 <div class="container">
@@ -245,72 +303,8 @@
     <div class="right">
         <h2>已选物品</h2>
         <ul id="checkedItems"></ul> <!-- 用于显示用户选择的物品 -->
-        <button onclick="copyCheckedItems()">复制已选物品</button>
     </div>
 </div>
-<script>
-    // 获取所有可选物品（复选框）
-    const availableItems = document.querySelectorAll('#availableItems input[type="checkbox"], #otherItems input[type="checkbox"]');
-    const checkedItemsList = document.getElementById('checkedItems'); // 获取已选物品的容器
 
-    // 为每个复选框添加监听事件，监听其是否被选中或取消选中
-    availableItems.forEach(item => {
-        item.addEventListener('change', function () {
-            if (this.checked) {
-                // 当复选框被选中时，添加物品到已选列表
-                addCheckedItem(this.value);
-            } else {
-                // 当复选框取消选中时，从已选列表中移除物品
-                removeCheckedItem(this.value);
-            }
-        });
-    });
-
-    // 添加已选物品到右侧列表的函数
-    function addCheckedItem(item) {
-        const li = document.createElement('li'); // 创建新的列表项
-        li.textContent = item; // 设置列表项的内容为物品名称
-        checkedItemsList.appendChild(li); // 将列表项添加到右侧的已选物品列表
-    }
-
-    // 从右侧列表中移除取消选择的物品
-    function removeCheckedItem(item) {
-        const items = checkedItemsList.querySelectorAll('li'); // 获取所有右侧列表中的物品
-        items.forEach(li => {
-            if (li.textContent === item) {
-                // 如果找到匹配的物品，移除它
-                checkedItemsList.removeChild(li);
-            }
-        });
-    }
-
-    // 复制已选物品到剪贴板
-    function copyCheckedItems() {
-        const checkedItems = document.querySelectorAll('#checkedItems li'); // 获取所有已选物品
-        let itemsText = ''; // 用于存储所有物品的文本
-
-        // 将所有已选物品的文本拼接到一起
-        checkedItems.forEach(item => {
-            itemsText += item.textContent + '\n'; // 每个物品后添加换行符
-        });
-
-        // 使用浏览器的剪贴板API将文本复制到剪贴板
-        navigator.clipboard.writeText(itemsText).then(() => {
-            alert('已复制已选物品到剪贴板！'); // 成功复制后显示提示
-        }).catch(err => {
-            alert('复制失败，请重试'); // 复制失败时显示错误提示
-        });
-    }
-
-    // 切换类别（折叠/展开）
-    function toggleCategory(button) {
-        const itemsDiv = button.nextElementSibling;
-        if (itemsDiv.style.display === "none" || itemsDiv.style.display === "") {
-            itemsDiv.style.display = "block";
-        } else {
-            itemsDiv.style.display = "none";
-        }
-    }
-</script>
 </body>
 </html>
