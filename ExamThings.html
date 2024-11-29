@@ -1,1 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>考试必带清单</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(270deg, #FFEFBA, #FFFFFF, #ADD8E6, #F0F4F8);
+            background-size: 800% 800%;
+            animation: gradientBackground 20s ease infinite;
+        }
 
+        @keyframes gradientBackground {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 50% 50%; }
+            50% { background-position: 100% 50%; }
+            75% { background-position: 50% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            display: flex;
+            width: 80%;
+            height: 90vh;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+        .left, .right {
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .left {
+            width: 60%;
+            background-color: #f9f9f9;
+        }
+        .right {
+            width: 40%;
+            background-color: #ffffff;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        h2 {
+            font-size: 18px;
+            color: #007BFF;
+            margin-top: 20px;
+            border-bottom: 2px solid #007BFF;
+            padding-bottom: 5px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+        }
+        ul li:hover {
+            background-color: #e2e6ea;
+            transform: scale(1.02);
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .right h1 {
+            background-color: #ff9900;
+            color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .right ul {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .right ul li {
+            background-color: #ffefd5;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* 渐变色按钮样式 */
+        button {
+            background: linear-gradient(45deg, #6ab04c, #badc58);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.5s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #ffbe76, #ff7979);
+        }
+
+        details ul {
+            display: none;
+        }
+        details[open] ul {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* 勾选打勾动画 */
+        input[type="checkbox"]:checked + label::before {
+            content: "✔";
+            display: inline-block;
+            color: green;
+            animation: checkMark 0.5s ease-in-out;
+        }
+
+        @keyframes checkMark {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+    </style>
+    <script>
+        function updateCheckedItems(checkbox, itemText) {
+            const listItem = checkbox.parentNode;
+            const checkedList = document.getElementById('checkedItems');
+
+            // 移除左侧选中项
+            listItem.remove();
+
+            // 将选中项添加到右侧
+            const li = document.createElement('li');
+            li.textContent = itemText;
+            checkedList.appendChild(li);
+
+            // 添加淡入效果
+            li.style.opacity = "0";
+            setTimeout(() => li.style.opacity = "1", 10);
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="left">
+        <h1>旅行必备</h1>
+
+        <h2>1. 证件与票据</h2>
+        <ul>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '身份证')">身份证</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '学生证')">学生证</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '驾照')">驾照</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '护照')">护照</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '现金')">现金</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '银行卡 + 公务卡')">银行卡 + 公务卡</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '车票或机票（提前3天值机）')">车票或机票（提前3天值机）</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '证件照')">证件照</li>
+        </ul>
+
+        <h2>2. 行李与衣物</h2>
+        <ul>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '小书包')">小书包</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '行李箱')">行李箱</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '衣服')">衣服</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '鞋子')">鞋子</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '拖鞋')">拖鞋</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '泳装')">泳装</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '太阳镜')">太阳镜</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '帽子')">帽子</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '围巾')">围巾</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '口罩')">口罩</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '内裤')">内裤</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '袜子')">袜子</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '一次性马桶垫')">一次性马桶垫</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '睡袋 / 床上四件套')">睡袋 / 床上四件套</li>
+        </ul>
+
+        <h2>3. 个人护理与卫生用品</h2>
+        <ul>
+            <li>
+                <details>
+                    <summary>洗漱用品</summary>
+                    <ul>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '剃须刀')">剃须刀</li>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '毛巾')">毛巾</li>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '牙刷')">牙刷</li>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '牙膏')">牙膏</li>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '洗面奶')">洗面奶</li>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '洗发水')">洗发水</li>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '沐浴露')">沐浴露</li>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '护发素 / 发膜 / 护发精油')">发膜 / 护发精油</li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>护肤品</summary>
+                    <ul>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '爽肤水')">爽肤水</li>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '乳液 / 面霜')">乳液 / 面霜</li>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '眼霜')">眼霜</li>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '精华')">精华</li>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '面膜')">面膜</li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>化妆品</summary>
+                    <ul>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '防晒霜')">防晒霜</li>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '卸妆水 / 油 / 膏')">卸妆水 / 油 / 膏</li>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '隔离霜')">隔离霜</li>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '粉底液')">粉底液</li>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '气垫')">气垫</li>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '眉笔')">眉笔</li>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '口红')">口红</li>
+                        <li><input type="checkbox" onclick="updateCheckedItems(this, '散粉')">散粉</li>
+                    </ul>
+                </details>
+            </li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '眼镜')">眼镜</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '沐浴露')">香水</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '头发（护发素/膜+胶+架）')">头发（护发素/膜+胶+架）</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '牙线')">牙线</li>
+        </ul>
+
+        <h2>4. 电子设备及配件</h2>
+        <ul>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '手机')">手机</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '笔记本电脑')">笔记本电脑</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '平板电脑')">平板电脑</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '充电宝')">充电宝</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '耳机')">耳机</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '相机')">相机</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, 'U盘')">U盘</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '移动硬盘')">移动硬盘</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '充电器')">充电器</li>
+        </ul>
+
+        <h2>5. 药品与健康</h2>
+        <ul>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '口罩')">口罩</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '感冒药')">感冒药</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '布洛芬')">布洛芬</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '眼药水')">眼药水</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '鼻炎药')">鼻炎药</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '一支膏药')">一支膏药</li>
+        </ul>
+
+        <h2>6. 杂项与常用物品</h2>
+        <ul>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '雨伞')">雨伞</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '梳子')">梳子</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '水杯')">水杯</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '手纸')">手纸</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '创可贴')">创可贴</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '行程单')">行程单</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '纸质版地图')">纸质版地图</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '零食')">零食</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '钥匙')">钥匙</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, 'U型枕')">U型枕</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '耳塞')">耳塞</li>
+        </ul>
+
+        <h2>7. 出行前一天</h2>
+        <ul>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '结算必要的帐单（充电卡／水卡／煤气卡，防止回到家傻眼儿）')">结算必要的帐单（充电卡／水卡／煤气卡，防止回到家傻眼儿）</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '托管自己的宠物、植物')">托管自己的宠物、植物</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '告诉家人或者熟悉的朋友自己的行程')">告诉家人或者熟悉的朋友自己的行程</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '关好门窗')">关好门窗</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '关好门窗')">关闭所有电器电源</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '收好家里的贵重物品')">收好家里的贵重物品</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '请好假')">请好假</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '安排好自己的工作对接人')">安排好自己的工作对接人</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '扔垃圾')">扔垃圾</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '充电宝充满电')">充电宝充满电</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '看天气预报')">看天气预报</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '定闹钟')">定闹钟</li>
+        </ul>
+    </div>
+
+    <div class="right">
+        <h2>已选物品</h2>
+        <ul id="checkedItems"></ul> <!-- 用于显示用户选择的物品 -->
+    </div>
+</div>
+
+</body>
+</html>
