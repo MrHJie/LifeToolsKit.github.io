@@ -3,161 +3,421 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>旅行必备清单</title>
+    <title>旅行冒险清单</title>
     <style>
+        :root {
+            --primary: #7367F0;
+            --secondary: #FFB74D;
+            --success: #28C76F;
+            --background: #F8F7FA;
+            --card: #FFFFFF;
+            --text: #2C3E50;
+            --border: #E4E7F4;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(270deg, #FFEFBA, #FFFFFF, #ADD8E6, #F0F4F8);
-            background-size: 800% 800%;
-            animation: gradientBackground 20s ease infinite;
-        }
-
-        @keyframes gradientBackground {
-            0% { background-position: 0% 50%; }
-            25% { background-position: 50% 50%; }
-            50% { background-position: 100% 50%; }
-            75% { background-position: 50% 50%; }
-            100% { background-position: 0% 50%; }
+            padding: 20px;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            background-image: 
+                linear-gradient(45deg, rgba(115, 103, 240, 0.05) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(115, 103, 240, 0.05) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, rgba(115, 103, 240, 0.05) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(115, 103, 240, 0.05) 75%);
+            background-size: 20px 20px;
         }
 
         .container {
-            display: flex;
-            width: 80%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 7fr 3fr;
+            gap: 20px;
             height: 90vh;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-            border-radius: 15px;
-            overflow: hidden;
-            background-color: #ffffff;
         }
+
         .left, .right {
-            padding: 20px;
+            background: var(--card);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(115, 103, 240, 0.1);
             overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) var(--background);
         }
-        .left {
-            width: 60%;
-            background-color: #f9f9f9;
+
+        /* 自定义滚动条样式 */
+        .left::-webkit-scrollbar, .right::-webkit-scrollbar {
+            width: 8px;
         }
+
+        .left::-webkit-scrollbar-track, .right::-webkit-scrollbar-track {
+            background: var(--background);
+            border-radius: 4px;
+        }
+
+        .left::-webkit-scrollbar-thumb, .right::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
         .right {
-            width: 40%;
-            background-color: #ffffff;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 20px;
+            height: calc(90vh - 40px);
         }
+
         h1 {
-            font-size: 24px;
-            color: #333;
-            margin-bottom: 20px;
+            color: var(--primary);
             text-align: center;
+            font-size: 2em;
+            margin-bottom: 30px;
+            position: relative;
+            padding: 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
+
         h2 {
-            font-size: 18px;
-            color: #007BFF;
-            margin-top: 20px;
-            border-bottom: 2px solid #007BFF;
-            padding-bottom: 5px;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        ul li {
-            margin: 12px 0;
+            color: var(--primary);
+            font-size: 1.5em;
+            margin: 25px 0 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(115, 103, 240, 0.1), rgba(255, 183, 77, 0.1));
+            border-radius: 12px;
             display: flex;
             align-items: center;
-            padding: 8px;
-            background-color: #f0f0f0;
-            border-radius: 8px;
-            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
-        }
-        ul li:hover {
-            background-color: #e2e6ea;
-            transform: scale(1.02);
-        }
-        input[type="checkbox"] {
-            margin-right: 10px;
-        }
-        .right h1 {
-            background-color: #ff9900;
-            color: #fff;
-            padding: 10px;
-            border-radius: 10px;
-        }
-        .right ul {
-            background-color: #ffffff;
-            border-radius: 8px;
-            padding: 10px;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .right ul li {
-            background-color: #ffefd5;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 6px;
-            transition: opacity 0.5s ease-in-out;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
         }
 
-        /* 渐变色按钮样式 */
-        button {
-            background: linear-gradient(45deg, #6ab04c, #badc58);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            color: #fff;
+        h2::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+        }
+
+        ul li {
+            background: var(--background);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
             cursor: pointer;
-            transition: background 0.5s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
         }
 
-        button:hover {
-            background: linear-gradient(45deg, #ffbe76, #ff7979);
+        ul li:hover {
+            transform: translateX(8px);
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(115, 103, 240, 0.05), rgba(255, 183, 77, 0.05));
         }
 
-        details ul {
-            display: none;
+        ul li::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
         }
-        details[open] ul {
-            display: block;
-            animation: fadeIn 0.5s ease-in-out;
+
+        ul li:hover::after {
+            transform: translateX(100%);
+        }
+
+        input[type="checkbox"] {
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            margin-right: 15px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        input[type="checkbox"]:checked {
+            background: var(--success);
+            border-color: var(--success);
+            animation: checkmark 0.3s ease-in-out;
+        }
+
+        @keyframes checkmark {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        input[type="checkbox"]:checked::before {
+            content: '✓';
+            position: absolute;
+            color: white;
+            font-size: 16px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(115, 103, 240, 0.1), rgba(255, 183, 77, 0.1));
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .achievement {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            animation: slideIn 0.5s ease-out;
+            box-shadow: 0 4px 15px rgba(115, 103, 240, 0.3);
+            z-index: 1000;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%) translateY(-50%); opacity: 0; }
+            to { transform: translateX(0) translateY(0); opacity: 1; }
+        }
+
+        #checkedItems li {
+            background: linear-gradient(135deg, rgba(40, 199, 111, 0.1), rgba(115, 103, 240, 0.1));
+            border-left: 4px solid var(--success);
+            animation: fadeIn 0.3s ease-out;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 勾选打勾动画 */
-        input[type="checkbox"]:checked + label::before {
-            content: "✔";
-            display: inline-block;
-            color: green;
-            animation: checkMark 0.5s ease-in-out;
+        /* 物品收集动画 */
+        @keyframes collect {
+            0% { transform: translateX(0); opacity: 1; }
+            50% { transform: translateX(20px) scale(0.8); opacity: 0.5; }
+            100% { transform: translateX(50px); opacity: 0; }
         }
 
-        @keyframes checkMark {
-            from { transform: scale(0); }
-            to { transform: scale(1); }
+        @keyframes uncollect {
+            0% { transform: translateX(0); opacity: 1; }
+            100% { transform: translateX(-50px); opacity: 0; }
+        }
+
+        /* 右侧已收集物品样式优化 */
+        #checkedItems li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: linear-gradient(135deg, rgba(40, 199, 111, 0.1), rgba(115, 103, 240, 0.1));
+            border-left: 4px solid var(--success);
+            border-radius: 8px;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            color: #FF5252;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0 5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #checkedItems li:hover .remove-btn {
+            opacity: 1;
+        }
+
+        /* 里程碑提示样式 */
+        .milestone {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            text-align: center;
+            animation: milestone 2s ease-out forwards;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(115, 103, 240, 0.3);
+        }
+
+        @keyframes milestone {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            10% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+            20% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            80% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
         }
     </style>
+
     <script>
+        let totalItems = 0;
+        let checkedItems = 0;
+        const achievedMilestones = new Set();
+
         function updateCheckedItems(checkbox, itemText) {
-            const listItem = checkbox.parentNode;
+            const listItem = checkbox.closest('li');
             const checkedList = document.getElementById('checkedItems');
+            
+            if (checkbox.checked) {
+                // 添加收集动画
+                listItem.style.animation = 'collect 0.5s ease-out forwards';
+                
+                setTimeout(() => {
+                    // 从左侧移除
+                    listItem.remove();
+                    
+                    // 添加到右侧
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <span class="item-text">${itemText}</span>
+                        <button class="remove-btn" onclick="removeItem(this, '${itemText}')">×</button>
+                    `;
+                    checkedList.appendChild(li);
+                    
+                    // 更新进度和显示成就
+                    checkedItems++;
+                    updateProgress();
+                    showAchievement(itemText);
+                    checkMilestones();
+                }, 500);
+            }
+        }
 
-            // 移除左侧选中项
-            listItem.remove();
+        function removeItem(btn, itemText) {
+            const item = btn.parentElement;
+            item.style.animation = 'uncollect 0.3s ease-out forwards';
+            
+            setTimeout(() => {
+                item.remove();
+                checkedItems--;
+                updateProgress();
+                
+                // 将物品放回对应分类
+                const categoryLists = document.querySelectorAll('.left ul');
+                const li = document.createElement('li');
+                li.innerHTML = `<input type="checkbox" onclick="updateCheckedItems(this, '${itemText}')">${itemText}`;
+                categoryLists[0].appendChild(li); // 临时添加到第一个分类，可以根据需要修改
+            }, 300);
+        }
 
-            // 将选中项添加到右侧
-            const li = document.createElement('li');
-            li.textContent = itemText;
-            checkedList.appendChild(li);
+        function updateProgress() {
+            const progress = document.querySelector('.progress');
+            const percentage = (checkedItems / totalItems) * 100;
+            progress.style.width = `${percentage}%`;
+            
+            document.querySelector('#itemsCount').textContent = checkedItems;
+            document.querySelector('#completionRate').textContent = `${Math.round(percentage)}%`;
+        }
 
-            // 添加淡入效果
-            li.style.opacity = "0";
-            setTimeout(() => li.style.opacity = "1", 10);
+        function showAchievement(itemText) {
+            const achievement = document.createElement('div');
+            achievement.className = 'achievement';
+            achievement.textContent = `收集到: ${itemText}`;
+            document.body.appendChild(achievement);
+            
+            setTimeout(() => achievement.remove(), 2000);
+        }
+
+        function checkMilestones() {
+            const percentage = (checkedItems / totalItems) * 100;
+            const milestones = {
+                25: '准备工作开始了！',
+                50: '已经准备一半了！',
+                75: '即将完成准备！',
+                100: '完美收集！准备出发吧！'
+            };
+            
+            for (const [threshold, message] of Object.entries(milestones)) {
+                if (percentage >= threshold && !achievedMilestones.has(threshold)) {
+                    showMilestone(message);
+                    achievedMilestones.add(threshold);
+                }
+            }
+        }
+
+        function showMilestone(message) {
+            const milestone = document.createElement('div');
+            milestone.className = 'milestone';
+            milestone.innerHTML = `
+                <h3>🎉 达成里程碑！</h3>
+                <p>${message}</p>
+            `;
+            document.body.appendChild(milestone);
+            
+            setTimeout(() => milestone.remove(), 2000);
+        }
+
+        window.onload = function() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            totalItems = checkboxes.length;
+            
+            // 添加统计面板
+            const statsHtml = `
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-value" id="itemsCount">0</div>
+                        <div class="stat-label">已收集物品</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="completionRate">0%</div>
+                        <div class="stat-label">完成度</div>
+                    </div>
+                </div>
+            `;
+            document.querySelector('.right').insertAdjacentHTML('afterbegin', statsHtml);
         }
     </script>
 </head>
@@ -248,7 +508,7 @@
 
         <h2>4. 电子设备及配件</h2>
         <ul>
-            <li><input type="checkbox" onclick="updateCheckedItems(this, '手机')">手机</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '手��')">手机</li>
             <li><input type="checkbox" onclick="updateCheckedItems(this, '笔记本电脑')">笔记本电脑</li>
             <li><input type="checkbox" onclick="updateCheckedItems(this, '平板电脑')">平板电脑</li>
             <li><input type="checkbox" onclick="updateCheckedItems(this, '充电宝')">充电宝</li>
@@ -302,8 +562,12 @@
     </div>
 
     <div class="right">
-        <h2>已选物品</h2>
-        <ul id="checkedItems"></ul> <!-- 用于显示用户选择的物品 -->
+        <h2>旅行准备进度</h2>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+        <h2>已收集物品</h2>
+        <ul id="checkedItems"></ul>
     </div>
 </div>
 
