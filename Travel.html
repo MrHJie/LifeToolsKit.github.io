@@ -300,6 +300,140 @@
             80% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
             100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
         }
+
+        /* 移动端适配 */
+        @media screen and (max-width: 768px) {
+            /* 基础布局调整 */
+            .container {
+                grid-template-columns: 1fr;
+                padding: 10px;
+                height: auto;
+                gap: 15px;
+            }
+
+            body {
+                padding: 10px;
+            }
+
+            /* 左右区域调整 */
+            .left, .right {
+                padding: 15px;
+                height: auto;
+                overflow-y: visible;
+            }
+
+            .right {
+                position: relative;
+                top: 0;
+            }
+
+            /* 标题调整 */
+            h1 {
+                font-size: 1.5em;
+                padding: 15px 0;
+                margin-bottom: 20px;
+            }
+
+            h2 {
+                font-size: 1.2em;
+                padding: 10px;
+                margin: 15px 0 10px;
+            }
+
+            /* 列表项调整 */
+            ul li {
+                padding: 12px;
+                margin: 8px 0;
+            }
+
+            /* 移除悬停效果 */
+            ul li:hover {
+                transform: none;
+            }
+
+            /* 优化触摸体验 */
+            ul li:active {
+                background: linear-gradient(135deg, rgba(115, 103, 240, 0.05), rgba(255, 183, 77, 0.05));
+                border-color: var(--primary);
+            }
+
+            /* 复选框优化 */
+            input[type="checkbox"] {
+                width: 22px;
+                height: 22px;
+                margin-right: 10px;
+            }
+
+            /* 统计卡片调整 */
+            .stats {
+                gap: 10px;
+                margin: 15px 0;
+            }
+
+            .stat-card {
+                padding: 15px;
+            }
+
+            /* 提示信息调整 */
+            .achievement {
+                width: 90%;
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+                font-size: 14px;
+                padding: 12px 20px;
+            }
+
+            .milestone {
+                width: 90%;
+                padding: 15px 20px;
+                font-size: 14px;
+            }
+
+            /* 删除按钮始终可见 */
+            .remove-btn {
+                opacity: 1;
+                padding: 8px;
+                font-size: 18px;
+            }
+
+            /* 详情列表优化 */
+            details summary {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            details ul {
+                margin-left: 10px;
+            }
+        }
+
+        /* 小屏幕额外优化 */
+        @media screen and (max-width: 320px) {
+            body {
+                font-size: 13px;
+            }
+
+            .container {
+                padding: 5px;
+            }
+
+            .left, .right {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.3em;
+            }
+
+            h2 {
+                font-size: 1.1em;
+            }
+
+            .stat-card {
+                padding: 10px;
+            }
+        }
     </style>
 
     <script>
@@ -508,7 +642,7 @@
 
         <h2>4. 电子设备及配件</h2>
         <ul>
-            <li><input type="checkbox" onclick="updateCheckedItems(this, '手��')">手机</li>
+            <li><input type="checkbox" onclick="updateCheckedItems(this, '手机')">手机</li>
             <li><input type="checkbox" onclick="updateCheckedItems(this, '笔记本电脑')">笔记本电脑</li>
             <li><input type="checkbox" onclick="updateCheckedItems(this, '平板电脑')">平板电脑</li>
             <li><input type="checkbox" onclick="updateCheckedItems(this, '充电宝')">充电宝</li>
